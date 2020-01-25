@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type queue struct {
 	firstEl *queueNode
 	lastEl  *queueNode
@@ -81,8 +79,4 @@ func (receiver *queue) dequeue() queue {
 	return firstToReturn
 }
 
-func main() {
-
-	q := queue{}
-	fmt.Println(q.last())
-}
+func main() {}
