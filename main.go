@@ -16,11 +16,11 @@ func (receiver *queue) len() int {
 	return receiver.size
 }
 
-func (receiver *queue) first() *queueNode {
+func (receiver *queue) first() interface{} {
 	return receiver.firstEl
 }
 
-func (receiver *queue) last() *queueNode {
+func (receiver *queue) last() interface{} {
 	return receiver.lastEl
 }
 
