@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type queue struct {
 	firstEl *queueNode
 	lastEl  *queueNode
@@ -7,9 +9,9 @@ type queue struct {
 }
 
 type queueNode struct {
-	nextEl   *queueNode
-	prevEl   *queueNode
-	priority int
+	nextEl *queueNode
+	prevEl *queueNode
+	value  int
 }
 
 func (receiver *queue) len() int {
@@ -17,19 +19,25 @@ func (receiver *queue) len() int {
 }
 
 func (receiver *queue) first() interface{} {
-	return receiver.firstEl
+	if receiver.firstEl == nil {
+		return nil
+	}
+	return receiver.firstEl.value
 }
 
 func (receiver *queue) last() interface{} {
-	return receiver.lastEl
+	if receiver.lastEl == nil {
+		return nil
+	}
+	return receiver.lastEl.value
 }
 
-func (receiver *queue) equeue(priority int) {
+func (receiver *queue) equeue(value int) {
 	if receiver.len() == 0 {
 		receiver.firstEl = &queueNode{
-			nextEl:   nil,
-			prevEl:   nil,
-			priority: priority,
+			nextEl: nil,
+			prevEl: nil,
+			value:  value,
 		}
 		receiver.lastEl = receiver.firstEl
 		receiver.size++
@@ -44,9 +52,9 @@ func (receiver *queue) equeue(priority int) {
 	for {
 		if current.nextEl == nil {
 			current.nextEl = &queueNode{
-				nextEl:   nil,
-				prevEl:   current,
-				priority: priority,
+				nextEl: nil,
+				prevEl: current,
+				value:  value,
 			}
 			receiver.lastEl = current.nextEl
 			break
@@ -73,4 +81,8 @@ func (receiver *queue) dequeue() queue {
 	return firstToReturn
 }
 
-func main() {}
+func main() {
+
+	q := queue{}
+	fmt.Println(q.last())
+}
