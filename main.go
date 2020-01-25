@@ -37,19 +37,21 @@ func (receiver *queue) equeue(priority int) {
 	}
 	receiver.size++
 	current := receiver.firstEl
-	if current != nil {
-		for {
-			if current.nextEl == nil {
-				current.nextEl = &queueNode{
-					nextEl:   nil,
-					prevEl:   current,
-					priority: priority,
-				}
-				receiver.lastEl = current.nextEl
-				break
+	if current == nil {
+		return
+	}
+
+	for {
+		if current.nextEl == nil {
+			current.nextEl = &queueNode{
+				nextEl:   nil,
+				prevEl:   current,
+				priority: priority,
 			}
-			current = current.nextEl
+			receiver.lastEl = current.nextEl
+			break
 		}
+		current = current.nextEl
 	}
 }
 
